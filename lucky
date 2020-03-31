@@ -1,0 +1,35 @@
+#include<stdio.h>
+main()
+{
+ int p;
+ printf("Enter the no. of processes: ");
+ scanf("%d",&p);
+ printf("\nenter priorities & burst times: \n");
+ int i,j,prio[p],bt[p],tat[p],wt[p],stat=0,swt=0;
+ for(i=0;i<p;i++)
+ {
+  scanf("%d %d",&prio[i],&bt[i]);
+  tat[i]=0;
+ }
+ 
+ for(i=0;i<p;i++)
+  for(j=i+1;j<p;j++)
+   if(prio[j]<prio[i])
+   {
+    prio[j]=prio[j]+prio[i]-(prio[i]=prio[j]);
+    bt[j]=bt[j]+bt[i]-(bt[i]=bt[j]);
+   }
+  
+ 
+
+ for(i=0;i<p;i++)
+ {
+  for(j=0;j<=i;j++)
+  tat[i]+=bt[j];
+  stat+=tat[i];
+  wt[i]=tat[i]-bt[i];
+  swt+=wt[i];
+ }
+ printf("\nAvg. TAT is: %f & Avg. WT is: %f",(float)stat/(float)p,(float)swt/(float)p); 
+ 
+}
